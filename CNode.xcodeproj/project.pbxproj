@@ -55,6 +55,7 @@
 		844335041C8E77EF005C78A4 /* UIAlertView+LBXAlertAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 844335001C8E77EF005C78A4 /* UIAlertView+LBXAlertAction.m */; };
 		844335051C8E77EF005C78A4 /* LBXAlertAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 844335021C8E77EF005C78A4 /* LBXAlertAction.m */; };
 		844335081C8E7AA5005C78A4 /* VerifyTokenResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 844335071C8E7AA5005C78A4 /* VerifyTokenResult.m */; };
+		8443350B1C8ED97F005C78A4 /* FilterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8443350A1C8ED97F005C78A4 /* FilterView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -152,6 +153,8 @@
 		844335021C8E77EF005C78A4 /* LBXAlertAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LBXAlertAction.m; sourceTree = "<group>"; };
 		844335061C8E7AA5005C78A4 /* VerifyTokenResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VerifyTokenResult.h; sourceTree = "<group>"; };
 		844335071C8E7AA5005C78A4 /* VerifyTokenResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VerifyTokenResult.m; sourceTree = "<group>"; };
+		844335091C8ED97F005C78A4 /* FilterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterView.h; sourceTree = "<group>"; };
+		8443350A1C8ED97F005C78A4 /* FilterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterView.m; sourceTree = "<group>"; };
 		DCAA7AE815605A24070833F4 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -308,6 +311,8 @@
 				844334A81C8D2C17005C78A4 /* XMDateSelectView.m */,
 				844334A91C8D2C17005C78A4 /* XWindowStack.h */,
 				844334AA1C8D2C17005C78A4 /* XWindowStack.m */,
+				844335091C8ED97F005C78A4 /* FilterView.h */,
+				8443350A1C8ED97F005C78A4 /* FilterView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -529,6 +534,7 @@
 				844334E61C8D7CA1005C78A4 /* RepliesListViewController.m in Sources */,
 				844334841C8D2B6D005C78A4 /* FDTableViewController.m in Sources */,
 				844334E91C8D7D18005C78A4 /* CommentItemCell.m in Sources */,
+				8443350B1C8ED97F005C78A4 /* FilterView.m in Sources */,
 				844335081C8E7AA5005C78A4 /* VerifyTokenResult.m in Sources */,
 				8443346B1C8D2B66005C78A4 /* base64.m in Sources */,
 				844334411C8D299A005C78A4 /* AppDelegate.m in Sources */,

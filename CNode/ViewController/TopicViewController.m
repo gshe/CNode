@@ -10,6 +10,7 @@
 #import "TopicItemCell.h"
 #import "DetailViewController.h"
 #import "AppDelegate.h"
+#import "FilterView.h"
 
 @interface TopicViewController ()
 @property(nonatomic, strong) NSString *tab;
@@ -36,6 +37,11 @@
                                        style:UIBarButtonItemStylePlain
                                       target:self
                                       action:@selector(openLeftDrawer)];
+  self.navigationItem.rightBarButtonItem =
+      [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"filter"]
+                                       style:UIBarButtonItemStylePlain
+                                      target:self
+                                      action:@selector(openFilterPressed)];
 }
 
 - (void)openLeftDrawer {
@@ -51,6 +57,15 @@
       [mainVc openDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
     }
   }
+}
+
+- (void)openFilterPressed {
+  FilterView *v = [[FilterView alloc] initWithFrame:CGRectZero];
+  v.selectedTabBlock = ^(NSString *tab) {
+    _tab = tab;
+    [self loadNewData];
+  };
+  [v show];
 }
 
 - (void)didReceiveMemoryWarning {

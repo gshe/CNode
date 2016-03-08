@@ -152,10 +152,13 @@
 #pragma SubLBXScanViewControllerDelegate
 - (void)QRCodeScanned:(NSString *)token {
   [self showHUD];
-  FDWeakSelf;
   [[UserManager sharedInstance]
          verifyToken:token
-      completedBlock:nil
+      completedBlock:^(id data, NSError *error) {
+		  if (error){
+			  [self showError:error];
+		  }
+	  }
       ];
 }
 
