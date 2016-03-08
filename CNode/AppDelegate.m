@@ -12,6 +12,7 @@
 #import "MMDrawerController.h"
 #import "MMExampleDrawerVisualStateManager.h"
 #import "AFNetworkActivityIndicatorManager.h"
+#import "TopicViewController.h"
 
 @interface AppDelegate ()
 
@@ -20,21 +21,21 @@
 @implementation AppDelegate
 
 - (UIViewController *)getRootViewController {
-  MainViewController *mainVC =
-      [[MainViewController alloc] initWithNibName:nil bundle:nil];
+  UINavigationController *centerNaviVC = [[UINavigationController alloc]
+      initWithRootViewController:
+          [[TopicViewController alloc] initWithNibName:nil bundle:nil]];
 
   LeftDrawerViewController *leftVC =
       [[LeftDrawerViewController alloc] initWithNibName:nil bundle:nil];
-  mainVC.leftViewController = leftVC;
-  leftVC.delegate = mainVC;
   MMDrawerController *drawerController =
-      [[MMDrawerController alloc] initWithCenterViewController:mainVC
+      [[MMDrawerController alloc] initWithCenterViewController:centerNaviVC
                                       leftDrawerViewController:leftVC];
   [drawerController setShowsShadow:YES];
   [drawerController setRestorationIdentifier:@"MMDrawer2"];
   [drawerController setMaximumLeftDrawerWidth:200];
-  [drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeAll];
+  [drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModePanningNavigationBar];
   [drawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModeAll];
+
   [drawerController
       setDrawerVisualStateBlock:^(MMDrawerController *drawerController,
                                   MMDrawerSide drawerSide,
