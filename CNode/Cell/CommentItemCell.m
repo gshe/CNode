@@ -28,14 +28,15 @@
 
     self.title = [UILabel new];
     self.title.font = Font_13_B;
-    self.title.numberOfLines = 0;
+    self.title.numberOfLines = 1;
     self.title.textColor = [UIColor ex_mainTextColor];
     self.title.textAlignment = NSTextAlignmentLeft;
+    self.title.lineBreakMode = NSLineBreakByTruncatingTail;
 
     self.authorName = [UILabel new];
     self.authorName.font = Font_13;
     self.authorName.textColor = [UIColor ex_subTextColor];
-    self.authorName.numberOfLines = 0;
+    self.authorName.numberOfLines = 1;
     self.authorName.lineBreakMode = NSLineBreakByWordWrapping;
     self.authorName.textAlignment = NSTextAlignmentLeft;
 
@@ -102,6 +103,11 @@
     make.height.mas_equalTo(44);
     make.width.mas_equalTo(44);
   }];
+
+  [self.pubDate mas_makeConstraints:^(MASConstraintMaker *make) {
+    make.bottom.equalTo(self.contentView).offset(-5);
+    make.left.equalTo(self.title);
+  }];
 }
 
 - (void)dealloc {
@@ -119,18 +125,7 @@
 + (CGFloat)heightForObject:(id)object
                atIndexPath:(NSIndexPath *)indexPath
                  tableView:(UITableView *)tableView {
-  CGFloat height = 54;
-  NICellObject *obj = object;
-  CommentItemCellUserData *userData = (CommentItemCellUserData *)obj.userInfo;
-  CGFloat maxWidth = tableView.frame.size.width - 30 - 44 - 15;
-
-  CGFloat titleHeight = [userData.reply.content
-      lineBreakSizeOfStringwithFont:Font_13
-                           maxwidth:maxWidth
-                      lineBreakMode:NSLineBreakByWordWrapping];
-  if (titleHeight > 20) {
-    height += titleHeight - 20;
-  }
+  CGFloat height = 64;
   return height;
 }
 
@@ -139,7 +134,22 @@
   if (self.userData.reply.title) {
     self.title.text = self.userData.reply.title;
   } else {
-    self.title.text = self.userData.reply.content;
+    NSAttributedString *attrStr = [[NSAttributedString alloc]
+              initWithData:[self.userData.reply.content
+                               dataUsingEncoding:NSUnicodeStringEncoding]
+                   options:@{
+                     NSDocumentTypeDocumentAttribute : NSHTMLTextDocumentType
+                   }
+        documentAttributes:nil
+                     error:nil];
+    self.title.attributedText = attrStr;
+  }
+
+  if (self.userData.reply.create_at) {
+    self.pubDate.hidden = NO;
+    self.pubDate.text = timeStringFromNow(self.userData.reply.create_at);
+  } else {
+    self.pubDate.hidden = YES;
   }
 
   self.authorName.text = self.userData.reply.author_loginname;

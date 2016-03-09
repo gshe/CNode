@@ -35,3 +35,4 @@ extern UIImage *Image(NSString *imageName);
 
 NSArray *getTopicIdList(NSArray *topicList);
 NSArray *getReplyIdList(NSArray *replyList);
+NSString *timeStringFromNow(NSDate *date);

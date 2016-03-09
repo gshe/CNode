@@ -11,6 +11,7 @@
 @property(nonatomic, strong) UIView *containerView;
 @property(nonatomic, strong) UITableView *tabTableView;
 @property(nonatomic, strong) NSArray *tabArray;
+@property(nonatomic, strong) NSArray *tabDisplayArray;
 @end
 
 @implementation FilterView
@@ -27,6 +28,9 @@
 - (void)makeUI {
   _tabArray =
       [NSArray arrayWithObjects:@"无", @"ask", @"share", @"job", @"good", nil];
+  _tabDisplayArray = [NSArray
+      arrayWithObjects:@"无", @"问答", @"分享", @"招聘", @"精华", nil];
+
   _containerView = [[UIView alloc]
       initWithFrame:CGRectMake(WIDTH(self), 0, 150, HEIGHT(self))];
   _containerView.backgroundColor = [UIColor whiteColor];
@@ -34,7 +38,7 @@
   _containerView.layer.masksToBounds = YES;
   [self addSubview:_containerView];
   _tabTableView = [[UITableView alloc] initWithFrame:CGRectZero];
-  _tabTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+  _tabTableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
   _tabTableView.dataSource = self;
   _tabTableView.delegate = self;
   _tabTableView.showsVerticalScrollIndicator = NO;
@@ -45,11 +49,6 @@
     make.left.right.equalTo(_containerView);
     make.top.bottom.equalTo(_containerView);
   }];
-}
-
-#pragma mark - private method
-- (void)clickEmpty:(UITapGestureRecognizer *)tap {
-  [self dismiss];
 }
 
 #pragma mark - Action
@@ -85,7 +84,7 @@
       [[UILabel alloc] initWithFrame:CGRectMake(0, 0, WIDTH(tableView), 44)];
 
   v.backgroundColor = [UIColor lightGrayColor];
-  v.text = @"Filter";
+  v.text = @"过滤器";
   v.textAlignment = NSTextAlignmentCenter;
   return v;
 }
@@ -126,9 +125,23 @@
     cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
                                   reuseIdentifier:CMainCell]; //  2
   }
-  NSString *tab = _tabArray[indexPath.row];
+  NSString *tab = _tabDisplayArray[indexPath.row];
   cell.textLabel.text = tab;
-
+  cell.selected = [self isCellSelected:indexPath.row];
   return cell;
+}
+
+- (BOOL)isCellSelected:(NSInteger)index {
+  BOOL isSelected = NO;
+  if (index == 0) {
+    if (!_curTab) {
+      isSelected = YES;
+    }
+  } else {
+    if ([_curTab isEqualToString:_tabArray[index]]) {
+      isSelected = YES;
+    }
+  }
+  return isSelected;
 }
 @end

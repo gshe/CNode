@@ -8,6 +8,7 @@
 
 #import "LoginViewController.h"
 #import "SubLBXScanViewController.h"
+#import "TextInputView.h"
 
 @interface LoginViewController () <SubLBXScanViewControllerDelegate>
 @property(nonatomic, strong) UIButton *scanCodeLogin;
@@ -50,7 +51,7 @@
   [self.view addSubview:loginMessage];
   UIImageView *logoView = [[UIImageView alloc] init];
   logoView.layer.cornerRadius = 4;
-  logoView.image = [UIImage imageNamed:@"about"];
+  logoView.image = [UIImage imageNamed:@"cnode"];
   [self.view addSubview:logoView];
 
   _scanCodeLogin = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -75,14 +76,14 @@
   [self.view addSubview:_inputTokenLogin];
   [_scanCodeLogin mas_makeConstraints:^(MASConstraintMaker *make) {
     make.centerX.equalTo(self.view);
-    make.bottom.equalTo(_inputTokenLogin.mas_top).offset(-10);
+    make.centerY.equalTo(self.view).offset(-10);
     make.width.mas_equalTo(260);
     make.height.mas_equalTo(45);
   }];
 
   [_inputTokenLogin mas_makeConstraints:^(MASConstraintMaker *make) {
     make.centerX.equalTo(self.view);
-    make.bottom.equalTo(self.view).offset(-60);
+    make.top.equalTo(_scanCodeLogin.mas_bottom).offset(15);
     make.width.mas_equalTo(260);
     make.height.mas_equalTo(45);
   }];
@@ -95,8 +96,8 @@
   [logoView mas_makeConstraints:^(MASConstraintMaker *make) {
     make.centerX.equalTo(self.view);
     make.top.equalTo(self.view).offset(100);
-    make.width.mas_equalTo(200);
-    make.height.mas_equalTo(76);
+    make.width.mas_equalTo(88);
+    make.height.mas_equalTo(88);
   }];
 }
 
@@ -152,17 +153,21 @@
 #pragma SubLBXScanViewControllerDelegate
 - (void)QRCodeScanned:(NSString *)token {
   [self showHUD];
-  [[UserManager sharedInstance]
-         verifyToken:token
-      completedBlock:^(id data, NSError *error) {
-		  if (error){
-			  [self showError:error];
-		  }
-	  }
-      ];
+  [[UserManager sharedInstance] verifyToken:token
+                             completedBlock:^(id data, NSError *error) {
+                               [self hideAllHUDs];
+                               if (error) {
+                                 [self showError:error];
+                               }
+                             }];
 }
 
 - (void)inputTokenPressed:(id)sender{
-	
+	TextInputView *textInputView = [[TextInputView alloc] initWithFrame:CGRectZero];
+	textInputView.placeholder = @"请输入 token";
+	textInputView.textInputViewEnd = ^(NSString *token){
+		[self QRCodeScanned:token];
+	};
+	[textInputView show];
 }
 @end

@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		4C74E2E70B300A74425B4E51 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B73538CAB33EDE0329F5C6B /* libPods.a */; };
+		842106581C8FBD800071AE40 /* LeftItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 842106571C8FBD800071AE40 /* LeftItemCell.m */; };
+		8421065B1C8FCA110071AE40 /* RecommendersView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8421065A1C8FCA110071AE40 /* RecommendersView.m */; };
+		8421065E1C8FF1D40071AE40 /* TextInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8421065D1C8FF1D40071AE40 /* TextInputView.m */; };
 		8443343E1C8D299A005C78A4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8443343D1C8D299A005C78A4 /* main.m */; };
 		844334411C8D299A005C78A4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 844334401C8D299A005C78A4 /* AppDelegate.m */; };
 		844334491C8D299A005C78A4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 844334481C8D299A005C78A4 /* Assets.xcassets */; };
@@ -61,6 +64,12 @@
 /* Begin PBXFileReference section */
 		0B73538CAB33EDE0329F5C6B /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		284660B10864B2F5F876DBC6 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		842106561C8FBD800071AE40 /* LeftItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftItemCell.h; sourceTree = "<group>"; };
+		842106571C8FBD800071AE40 /* LeftItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftItemCell.m; sourceTree = "<group>"; };
+		842106591C8FCA110071AE40 /* RecommendersView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecommendersView.h; sourceTree = "<group>"; };
+		8421065A1C8FCA110071AE40 /* RecommendersView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecommendersView.m; sourceTree = "<group>"; };
+		8421065C1C8FF1D40071AE40 /* TextInputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextInputView.h; sourceTree = "<group>"; };
+		8421065D1C8FF1D40071AE40 /* TextInputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextInputView.m; sourceTree = "<group>"; };
 		844334391C8D299A005C78A4 /* CNode.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CNode.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8443343D1C8D299A005C78A4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8443343F1C8D299A005C78A4 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -237,6 +246,8 @@
 				844334CF1C8D4C0C005C78A4 /* TopicItemCell.m */,
 				844334581C8D2B5E005C78A4 /* FDTableViewCell.h */,
 				844334591C8D2B5E005C78A4 /* FDTableViewCell.m */,
+				842106561C8FBD800071AE40 /* LeftItemCell.h */,
+				842106571C8FBD800071AE40 /* LeftItemCell.m */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -299,6 +310,8 @@
 		8443348C1C8D2C17005C78A4 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				842106591C8FCA110071AE40 /* RecommendersView.h */,
+				8421065A1C8FCA110071AE40 /* RecommendersView.m */,
 				844334DA1C8D64A6005C78A4 /* WFLoadingView.h */,
 				844334DB1C8D64A6005C78A4 /* WFLoadingView.m */,
 				8443348D1C8D2C17005C78A4 /* AreaPickView.h */,
@@ -313,6 +326,8 @@
 				844334AA1C8D2C17005C78A4 /* XWindowStack.m */,
 				844335091C8ED97F005C78A4 /* FilterView.h */,
 				8443350A1C8ED97F005C78A4 /* FilterView.m */,
+				8421065C1C8FF1D40071AE40 /* TextInputView.h */,
+				8421065D1C8FF1D40071AE40 /* TextInputView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -520,6 +535,7 @@
 				844334D31C8D4DD9005C78A4 /* TopicViewController.m in Sources */,
 				844334891C8D2B6D005C78A4 /* MainViewController.m in Sources */,
 				844334BD1C8D2F64005C78A4 /* TopicManager.m in Sources */,
+				842106581C8FBD800071AE40 /* LeftItemCell.m in Sources */,
 				844334701C8D2B66005C78A4 /* XMDeveloperHelper.m in Sources */,
 				8443348A1C8D2B6D005C78A4 /* MMExampleDrawerVisualStateManager.m in Sources */,
 				844334C01C8D2F72005C78A4 /* UserManager.m in Sources */,
@@ -539,10 +555,12 @@
 				8443346B1C8D2B66005C78A4 /* base64.m in Sources */,
 				844334411C8D299A005C78A4 /* AppDelegate.m in Sources */,
 				8443346F1C8D2B66005C78A4 /* WFToolKit.m in Sources */,
+				8421065B1C8FCA110071AE40 /* RecommendersView.m in Sources */,
 				844334CD1C8D33E4005C78A4 /* TopicListModel.m in Sources */,
 				844335051C8E77EF005C78A4 /* LBXAlertAction.m in Sources */,
 				8443343E1C8D299A005C78A4 /* main.m in Sources */,
 				844334851C8D2B6D005C78A4 /* FDViewController.m in Sources */,
+				8421065E1C8FF1D40071AE40 /* TextInputView.m in Sources */,
 				844335041C8E77EF005C78A4 /* UIAlertView+LBXAlertAction.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

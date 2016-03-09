@@ -27,7 +27,6 @@
 }
 
 - (void)requestData {
-
   [self showHUD];
   FDWeakSelf;
   [[UserManager sharedInstance]
@@ -36,11 +35,12 @@
                   FDStrongSelf;
                   _userInfo = userInfo;
                   [self refreshUI];
+                  [self hideAllHUDs];
                 }];
 }
 
 - (void)refreshUI {
-
+  [self createHeaderView];
   NSMutableArray *contents = [@[] mutableCopy];
   self.action = [[NITableViewActions alloc] initWithTarget:self];
   if (self.userInfo) {
@@ -73,6 +73,50 @@
   [self setTableData:contents];
 }
 
+- (void)createHeaderView {
+  UIView *headerView = [[UIView alloc]
+      initWithFrame:CGRectMake(0, 0, WIDTH(self.tableView), 120)];
+  headerView.backgroundColor = [UIColor ex_globalBackgroundColor];
+  UIImageView *authorAvatar = [[UIImageView alloc] init];
+  authorAvatar.layer.cornerRadius = 22;
+  authorAvatar.layer.borderWidth = 1;
+  authorAvatar.layer.borderColor = [UIColor whiteColor].CGColor;
+  authorAvatar.clipsToBounds = YES;
+  [headerView addSubview:authorAvatar];
+
+  UILabel *loginNameLabel = [UILabel new];
+  loginNameLabel.textColor = [UIColor ex_greenTextColor];
+  loginNameLabel.font = Font_15_B;
+  loginNameLabel.text = self.userInfo.loginname;
+  [headerView addSubview:loginNameLabel];
+
+  UILabel *scoreLabel = [UILabel new];
+  scoreLabel.textColor = [UIColor ex_blueTextColor];
+  scoreLabel.font = Font_12_B;
+  scoreLabel.text =
+      [NSString stringWithFormat:@"积分: %ld", self.userInfo.score];
+  [headerView addSubview:scoreLabel];
+  [authorAvatar
+      sd_setImageWithURL:[NSURL URLWithString:self.userInfo.avatar_url]
+        placeholderImage:[UIImage imageNamed:@"Contact"]];
+
+  [authorAvatar mas_makeConstraints:^(MASConstraintMaker *make) {
+    make.top.equalTo(headerView).offset(15);
+    make.centerX.equalTo(headerView);
+    make.width.mas_equalTo(44);
+    make.height.mas_equalTo(44);
+  }];
+  [loginNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    make.top.equalTo(authorAvatar.mas_bottom).offset(5);
+    make.centerX.equalTo(headerView);
+  }];
+  [scoreLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    make.top.equalTo(loginNameLabel.mas_bottom).offset(5);
+    make.centerX.equalTo(headerView);
+  }];
+  self.tableView.tableHeaderView = headerView;
+}
+
 - (void)topicItemClicked:(NICellObject *)sender {
   TopicItemCellUserData *userData = sender.userInfo;
   DetailViewController *detailVC =
@@ -83,12 +127,7 @@
 }
 
 - (void)commentItemClicked:(NICellObject *)sender {
-  TopicItemCellUserData *userData = sender.userInfo;
-  DetailViewController *detailVC =
-      [[DetailViewController alloc] initWithNibName:nil bundle:nil];
-  detailVC.topicId = userData.topic.topicId;
-  detailVC.topicIdList = getReplyIdList(self.userInfo.recent_replies);
-  [self.navigationController pushViewController:detailVC animated:YES];
+
 }
 
 @end

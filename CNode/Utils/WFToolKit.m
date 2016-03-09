@@ -48,3 +48,35 @@ NSArray *getReplyIdList(NSArray *replyList) {
   }
   return array;
 }
+
+NSString *timeStringFromNow(NSDate *date) {
+
+  NSTimeInterval interval2 = [[NSDate date] timeIntervalSince1970];
+
+  NSTimeInterval interval1 = [date timeIntervalSince1970];
+
+  NSTimeInterval temp = interval2 - interval1;
+  long long interval = (long long)temp;
+  //    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+  //    dateFormatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
+  //    NSDate *endDate = [dateFormatter dateFromString:string];
+  //    NSTimeInterval interval = [[NSDate date] timeIntervalSinceDate:endDate];
+
+  //    [dateFormatter release];
+
+  if (interval < 60) {
+    return @"刚刚";
+  } else {
+    if ((interval = interval / 60) < 60) {
+      return [NSString stringWithFormat:@"%lld分钟前", interval];
+    } else if ((interval = interval / 60) < 24) {
+      return [NSString stringWithFormat:@"%lld小时前", interval];
+    } else if ((interval = interval / 24) < 30) {
+      return [NSString stringWithFormat:@"%lld天前", interval];
+    } else if ((interval = interval / 30) < 12) {
+      return [NSString stringWithFormat:@"%lld月前", interval];
+    } else {
+      return [NSString stringWithFormat:@"%lld年前", interval / 12];
+                        }
+		}
+}

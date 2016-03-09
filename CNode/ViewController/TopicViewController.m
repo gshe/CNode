@@ -61,6 +61,7 @@
 
 - (void)openFilterPressed {
   FilterView *v = [[FilterView alloc] initWithFrame:CGRectZero];
+  v.curTab = _tab;
   v.selectedTabBlock = ^(NSString *tab) {
     _tab = tab;
     [self loadNewData];

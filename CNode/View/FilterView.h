@@ -11,5 +11,6 @@
 typedef void (^FilterTabSelected)(NSString *selectedTab);
 
 @interface FilterView : PopupBaseView
+@property(nonatomic, copy) NSString *curTab;
 @property(nonatomic, copy) FilterTabSelected selectedTabBlock;
 @end

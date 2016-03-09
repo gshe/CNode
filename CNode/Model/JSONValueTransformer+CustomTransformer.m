@@ -7,11 +7,12 @@
 //
 
 #import "JSONValueTransformer+CustomTransformer.h"
-#define APIDateFormat @"yyyy-MM-ddTHH:mm:ss.SSSZ"
+#define APIDateFormat @"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
 
 @implementation JSONValueTransformer (CustomTransformer)
 - (NSDate *)NSDateFromNSString:(NSString *)string {
   NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+  formatter.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:0];
   [formatter setDateFormat:APIDateFormat];
   return [formatter dateFromString:string];
 }

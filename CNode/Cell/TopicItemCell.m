@@ -16,6 +16,7 @@
 @property(nonatomic, strong) UILabel *title;
 @property(nonatomic, strong) UILabel *tab;
 @property(nonatomic, strong) UILabel *pubDate;
+@property(nonatomic, strong) UILabel *commentInfoLabel;
 @end
 
 @implementation TopicItemCell
@@ -49,7 +50,12 @@
     self.pubDate = [UILabel new];
     self.pubDate.font = Font_12;
     self.pubDate.textColor = [UIColor ex_subTextColor];
-    self.pubDate.textAlignment = NSTextAlignmentRight;
+    self.pubDate.textAlignment = NSTextAlignmentLeft;
+
+    self.commentInfoLabel = [UILabel new];
+    self.commentInfoLabel.font = Font_12;
+    self.commentInfoLabel.textColor = [UIColor ex_subTextColor];
+    self.commentInfoLabel.textAlignment = NSTextAlignmentLeft;
 
     self.authorAvatar = [[UIImageView alloc] init];
     self.authorAvatar.image = [UIImage imageNamed:@"new"];
@@ -63,6 +69,8 @@
     [self.contentView addSubview:self.title];
     [self.contentView addSubview:self.authorName];
     [self.contentView addSubview:self.pubDate];
+    [self.contentView addSubview:self.commentInfoLabel];
+
     [self.contentView addSubview:self.authorAvatar];
     [self makeConstraint];
   }
@@ -91,7 +99,12 @@
 
   [self.pubDate mas_makeConstraints:^(MASConstraintMaker *make) {
     make.bottom.equalTo(self.contentView).offset(-5);
-    make.left.equalTo(self.contentView).offset(15);
+    make.left.equalTo(self.title);
+    make.right.equalTo(self.commentInfoLabel.mas_left).offset(-15);
+  }];
+
+  [self.commentInfoLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    make.bottom.equalTo(self.contentView).offset(-5);
     make.right.equalTo(self.contentView).offset(-15);
   }];
   [self.authorAvatar mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -112,13 +125,14 @@
   self.authorName.text = nil;
   self.authorAvatar.image = nil;
   self.pubDate.text = nil;
+  self.commentInfoLabel.text = nil;
   self.tab.text = nil;
 }
 
 + (CGFloat)heightForObject:(id)object
                atIndexPath:(NSIndexPath *)indexPath
                  tableView:(UITableView *)tableView {
-  CGFloat height = 54;
+  CGFloat height = 74;
   NICellObject *obj = object;
   TopicItemCellUserData *userData = (TopicItemCellUserData *)obj.userInfo;
   CGFloat maxWidth = tableView.frame.size.width - 30 - 44 - 15;
@@ -137,7 +151,19 @@
   self.userData = (TopicItemCellUserData *)object.userInfo;
   self.title.text = self.userData.topic.title;
   self.authorName.text = self.userData.topic.author_loginname;
-  // self.pubDate.text = self.userData.topic.create_at;
+  if (self.userData.topic.create_at) {
+    self.pubDate.text = timeStringFromNow(self.userData.topic.create_at);
+  } else {
+    self.pubDate.text = timeStringFromNow(self.userData.topic.last_reply_at);
+  }
+  if (self.userData.topic.visit_count == 0) {
+    self.commentInfoLabel.hidden = YES;
+  } else {
+    self.commentInfoLabel.hidden = NO;
+    self.commentInfoLabel.text =
+        [NSString stringWithFormat:@"%ld/%ld", self.userData.topic.reply_count,
+                                   self.userData.topic.visit_count];
+  }
   [self.authorAvatar
       sd_setImageWithURL:[NSURL URLWithString:self.userData.topic
                                                   .author_avatar_url]

@@ -8,6 +8,7 @@
 
 #import "LeftDrawerViewController.h"
 #import "LoginViewController.h"
+#import "LeftItemCell.h"
 
 @interface LeftDrawerViewController () <NIMutableTableViewModelDelegate,
                                         UITableViewDelegate>
@@ -18,13 +19,14 @@
 @property(nonatomic, strong) UILabel *nameLabel;
 @property(nonatomic, strong) NIMutableTableViewModel *model;
 @property(nonatomic, strong) NITableViewActions *action;
+
 @end
 
 @implementation LeftDrawerViewController
 
 - (void)viewDidLoad {
   [super viewDidLoad];
-  self.view.backgroundColor = [UIColor lightGrayColor];
+  self.view.backgroundColor = [UIColor whiteColor];
   [[NSNotificationCenter defaultCenter]
       addObserver:self
          selector:@selector(loginStatusChanged)
@@ -49,9 +51,10 @@
 
 - (void)configUI {
   _topView = [UIView new];
+  _topView.backgroundColor = [UIColor ex_blueTextColor];
   // _bottomView = [UIView new];
   _menuTable = [UITableView new];
-  _menuTable.backgroundColor = RGBColor(35, 42, 48, 1);
+  _menuTable.backgroundColor = [UIColor whiteColor];
   _menuTable.separatorStyle = UITableViewCellSeparatorStyleNone;
   [self.view addSubview:_topView];
   //[self.view addSubview:_bottomView];
@@ -60,7 +63,7 @@
   [_topView mas_makeConstraints:^(MASConstraintMaker *make) {
     make.left.right.equalTo(self.view);
     make.top.equalTo(self.view).offset(20);
-    make.height.mas_equalTo(56);
+    make.height.mas_equalTo(150);
   }];
 
   [_menuTable mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -75,6 +78,11 @@
 
   _avatarImg = [UIImageView new];
   _avatarImg.image = [UIImage imageNamed:@"Contacts"];
+  _avatarImg.layer.cornerRadius = 44 / 2;
+  _avatarImg.layer.borderColor = [UIColor whiteColor].CGColor;
+  _avatarImg.layer.borderWidth = 2;
+  _avatarImg.clipsToBounds = YES;
+
   UITapGestureRecognizer *tapGueture = [[UITapGestureRecognizer alloc]
       initWithTarget:self
               action:@selector(loginButtonClicked:)];
@@ -88,7 +96,7 @@
   [avatarview mas_makeConstraints:^(MASConstraintMaker *make) {
     make.left.equalTo(_topView).offset(15);
     make.right.equalTo(_topView).offset(-15);
-    make.top.equalTo(_topView);
+    make.centerY.equalTo(_topView);
     make.height.mas_equalTo(44);
   }];
 
@@ -138,20 +146,23 @@
     _nameLabel.text = @"请登录";
   }
 
+  NSArray *menuItemArray =
+      [NSArray arrayWithObjects:@"首页", @"消息", @"收藏", nil];
+  NSArray *menuItemImageArray =
+      [NSArray arrayWithObjects:@"Home", @"Message", @"fav", nil];
   NSMutableArray *contents = [@[] mutableCopy];
   self.action = [[NITableViewActions alloc] initWithTarget:self];
-  //  for (BaseViewController *vc in _controllers) {
-  //    ChannelItemCellUserData *userData = [[ChannelItemCellUserData alloc]
-  //    init];
-  //    userData.channelItem = vc.channleModel;
-  //    [contents
-  //        addObject:[self.action attachToObject:
-  //                                   [[NICellObject alloc]
-  //                                       initWithCellClass:[ChannelItemCell
-  //                                       class]
-  //                                                userInfo:userData]
-  //                                  tapSelector:@selector(itemClicked:)]];
-  //  }
+  for (NSInteger index = 0; index < menuItemArray.count; index++) {
+    LeftItemCellUserData *userData = [[LeftItemCellUserData alloc] init];
+    userData.name = menuItemArray[index];
+    userData.image = menuItemImageArray[index];
+    [contents
+        addObject:[self.action
+                      attachToObject:[[NICellObject alloc]
+                                         initWithCellClass:[LeftItemCell class]
+                                                  userInfo:userData]
+                         tapSelector:@selector(itemClicked:)]];
+  }
 
   _menuTable.delegate = [self.action forwardingTo:self];
   [self setTableData:contents];
