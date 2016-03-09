@@ -127,7 +127,13 @@
   }
   NSString *tab = _tabDisplayArray[indexPath.row];
   cell.textLabel.text = tab;
-  cell.selected = [self isCellSelected:indexPath.row];
+  if ([self isCellSelected:indexPath.row]) {
+    cell.textLabel.font = Font_15_B;
+    cell.textLabel.backgroundColor = [UIColor ex_globalBackgroundColor];
+  } else {
+    cell.textLabel.font = Font_13;
+    cell.textLabel.backgroundColor = [UIColor whiteColor];
+  }
   return cell;
 }
 

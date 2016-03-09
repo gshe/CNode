@@ -13,7 +13,6 @@
 #import "FilterView.h"
 
 @interface TopicViewController ()
-@property(nonatomic, strong) NSString *tab;
 @property(nonatomic, assign) NSInteger pageIndex;
 @property(nonatomic, strong) NSMutableArray<TopicInfoModel> *topicList;
 @end
@@ -22,7 +21,12 @@
 
 - (void)viewDidLoad {
   [super viewDidLoad];
-  self.title = @"主题";
+  if (self.menuItem) {
+    self.title = self.menuItem.name;
+  } else {
+    self.title = @"全部";
+  }
+
   _topicList = [@[] mutableCopy];
   self.tableView.mj_header =
       [MJRefreshNormalHeader headerWithRefreshingTarget:self
@@ -38,10 +42,10 @@
                                       target:self
                                       action:@selector(openLeftDrawer)];
   self.navigationItem.rightBarButtonItem =
-      [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"filter"]
+      [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"edit"]
                                        style:UIBarButtonItemStylePlain
                                       target:self
-                                      action:@selector(openFilterPressed)];
+                                      action:@selector(addTopicPressed:)];
 }
 
 - (void)openLeftDrawer {
@@ -58,15 +62,18 @@
     }
   }
 }
+//
+//- (void)openFilterPressed {
+//  FilterView *v = [[FilterView alloc] initWithFrame:CGRectZero];
+//  v.curTab = _tab;
+//  v.selectedTabBlock = ^(NSString *tab) {
+//    _tab = tab;
+//    [self loadNewData];
+//  };
+//  [v show];
+//}
 
-- (void)openFilterPressed {
-  FilterView *v = [[FilterView alloc] initWithFrame:CGRectZero];
-  v.curTab = _tab;
-  v.selectedTabBlock = ^(NSString *tab) {
-    _tab = tab;
-    [self loadNewData];
-  };
-  [v show];
+- (void)addTopicPressed:(id)sender {
 }
 
 - (void)didReceiveMemoryWarning {
@@ -79,7 +86,7 @@
   [[TopicManager sharedInstance]
       requestTopicWithPage:_pageIndex
               countPerPage:20
-                       tab:_tab
+                       tab:_menuItem.tab
             completedBlock:^(TopicListModel *data, NSError *error) {
               FDStrongSelf;
               [_topicList removeAllObjects];
@@ -94,7 +101,7 @@
   [[TopicManager sharedInstance]
       requestTopicWithPage:_pageIndex
               countPerPage:20
-                       tab:_tab
+                       tab:_menuItem.tab
             completedBlock:^(id data, NSError *error) {
               FDStrongSelf;
               [self dealWithMoreData:data error:error];

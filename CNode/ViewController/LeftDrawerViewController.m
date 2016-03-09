@@ -8,18 +8,22 @@
 
 #import "LeftDrawerViewController.h"
 #import "LoginViewController.h"
-#import "LeftItemCell.h"
+#import "MenuItemCell.h"
+#import "AppDelegate.h"
+#import "TopicViewController.h"
+#import "MessageViewController.h"
 
 @interface LeftDrawerViewController () <NIMutableTableViewModelDelegate,
                                         UITableViewDelegate>
 @property(nonatomic, strong) UITableView *menuTable;
 @property(nonatomic, strong) UIView *topView;
-//@property(nonatomic, strong) UIView *bottomView;
 @property(nonatomic, strong) UIImageView *avatarImg;
 @property(nonatomic, strong) UILabel *nameLabel;
+@property(nonatomic, strong) UILabel *scoreLabel;
 @property(nonatomic, strong) NIMutableTableViewModel *model;
 @property(nonatomic, strong) NITableViewActions *action;
-
+@property(nonatomic, strong) NSArray *menuItemArray;
+@property(nonatomic, strong) MenuItemModel *messageMenu;
 @end
 
 @implementation LeftDrawerViewController
@@ -32,6 +36,7 @@
          selector:@selector(loginStatusChanged)
              name:kLoginStatusChanged
            object:nil];
+  [self createMenuItemArray];
 }
 
 - (void)dealloc {
@@ -49,15 +54,59 @@
   [self refreshUI];
 }
 
+- (void)createMenuItemArray {
+  MenuItemModel *allMenu = [[MenuItemModel alloc] init];
+  allMenu.name = @"全部";
+  allMenu.tab = nil;
+  allMenu.image = @"all";
+  allMenu.menuType = MenuItemType_All;
+  allMenu.isSelected = YES;
+
+  MenuItemModel *askMenu = [[MenuItemModel alloc] init];
+  askMenu.name = @"问答";
+  askMenu.tab = @"ask";
+  askMenu.image = @"ask";
+  askMenu.menuType = MenuItemType_Ask;
+  askMenu.isSelected = NO;
+
+  MenuItemModel *jobMenu = [[MenuItemModel alloc] init];
+  jobMenu.name = @"招聘";
+  jobMenu.image = @"job";
+  jobMenu.tab = @"job";
+  jobMenu.menuType = MenuItemType_Job;
+  jobMenu.isSelected = NO;
+
+  MenuItemModel *shareMenu = [[MenuItemModel alloc] init];
+  shareMenu.name = @"分享";
+  shareMenu.image = @"share";
+  shareMenu.tab = @"share";
+  shareMenu.menuType = MenuItemType_Share;
+  shareMenu.isSelected = NO;
+
+  MenuItemModel *goodMenu = [[MenuItemModel alloc] init];
+  goodMenu.name = @"精华";
+  goodMenu.image = @"good";
+  goodMenu.tab = @"good";
+  goodMenu.menuType = MenuItemType_Good;
+  goodMenu.isSelected = NO;
+
+  _messageMenu = [[MenuItemModel alloc] init];
+  _messageMenu.name = @"消息";
+  _messageMenu.image = @"Message";
+  _messageMenu.menuType = MenuItemType_Message;
+  _messageMenu.isSelected = NO;
+  _menuItemArray =
+      [NSArray arrayWithObjects:allMenu, askMenu, jobMenu, shareMenu, goodMenu,
+                                _messageMenu, nil];
+}
+
 - (void)configUI {
   _topView = [UIView new];
   _topView.backgroundColor = [UIColor ex_blueTextColor];
-  // _bottomView = [UIView new];
   _menuTable = [UITableView new];
   _menuTable.backgroundColor = [UIColor whiteColor];
   _menuTable.separatorStyle = UITableViewCellSeparatorStyleNone;
   [self.view addSubview:_topView];
-  //[self.view addSubview:_bottomView];
   [self.view addSubview:_menuTable];
 
   [_topView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -90,8 +139,12 @@
   [avatarview addSubview:_avatarImg];
   _nameLabel = [UILabel new];
   _nameLabel.text = @"请登录";
+  _scoreLabel = [UILabel new];
+  _scoreLabel.hidden = YES;
+
   [avatarview addSubview:_nameLabel];
   [_topView addSubview:avatarview];
+  [_topView addSubview:_scoreLabel];
 
   [avatarview mas_makeConstraints:^(MASConstraintMaker *make) {
     make.left.equalTo(_topView).offset(15);
@@ -110,6 +163,12 @@
   [_nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
     make.left.equalTo(_avatarImg.mas_right).offset(15);
     make.centerY.equalTo(_avatarImg);
+  }];
+
+  [_scoreLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    make.left.equalTo(_avatarImg.mas_right).offset(15);
+    make.top.equalTo(_nameLabel.mas_bottom).offset(15);
+
   }];
 }
 
@@ -137,29 +196,34 @@
   if ([UserManager sharedInstance].isUserLogin) {
     [self.avatarImg
         sd_setImageWithURL:[NSURL URLWithString:[UserManager sharedInstance]
-                                                    .curUser.loginname]
+                                                    .curUser.avatar_url]
           placeholderImage:[UIImage imageNamed:@"Contacts"]];
     _nameLabel.text = [UserManager sharedInstance].curUser.loginname;
-
+    _scoreLabel.hidden = NO;
+    _scoreLabel.text =
+        [NSString stringWithFormat:@"积分:%ld",
+                                   [UserManager sharedInstance].curUser.score];
   } else {
     self.avatarImg.image = [UIImage imageNamed:@"Contacts"];
     _nameLabel.text = @"请登录";
+    _scoreLabel.hidden = YES;
   }
 
-  NSArray *menuItemArray =
-      [NSArray arrayWithObjects:@"首页", @"消息", @"收藏", nil];
-  NSArray *menuItemImageArray =
-      [NSArray arrayWithObjects:@"Home", @"Message", @"fav", nil];
+  _messageMenu.badgeCount = [UserManager sharedInstance].unreadMessageCount;
+
   NSMutableArray *contents = [@[] mutableCopy];
   self.action = [[NITableViewActions alloc] initWithTarget:self];
-  for (NSInteger index = 0; index < menuItemArray.count; index++) {
-    LeftItemCellUserData *userData = [[LeftItemCellUserData alloc] init];
-    userData.name = menuItemArray[index];
-    userData.image = menuItemImageArray[index];
+  for (NSInteger index = 0; index < _menuItemArray.count; index++) {
+    if (_menuItemArray[index] == _messageMenu) {
+      [contents addObject:@""];
+    }
+
+    MenuItemCellUserData *userData = [[MenuItemCellUserData alloc] init];
+    userData.menuItem = _menuItemArray[index];
     [contents
         addObject:[self.action
                       attachToObject:[[NICellObject alloc]
-                                         initWithCellClass:[LeftItemCell class]
+                                         initWithCellClass:[MenuItemCell class]
                                                   userInfo:userData]
                          tapSelector:@selector(itemClicked:)]];
   }
@@ -183,6 +247,11 @@
   [_menuTable reloadData];
 }
 
+- (CGFloat)tableView:(UITableView *)tableView
+    heightForHeaderInSection:(NSInteger)section {
+  return 10;
+}
+
 - (CGFloat)tableView:(UITableView *)aTableView
     heightForRowAtIndexPath:(NSIndexPath *)indexPath {
   return [NICellFactory tableView:aTableView
@@ -203,19 +272,77 @@
 }
 
 - (void)itemClicked:(NICellObject *)sender {
-  //  ChannelItemCellUserData *userData = sender.userInfo;
-  //  ChannelItemDataModel *item = userData.channelItem;
-  //  for (BaseViewController *vc in _controllers) {
-  //    if (vc.channleModel.isSelected) {
-  //      vc.channleModel.isSelected = NO;
-  //    }
-  //  }
-  //
-  //  item.isSelected = YES;
-  //
-  //  if ([self.delegate respondsToSelector:@selector(channelSelected:)]) {
-  //    [self.delegate channelSelected:item.channelVC];
-  //        }
+  MenuItemCellUserData *userData = sender.userInfo;
+  [self changedCenterViewController:userData.menuItem];
+}
+
+- (void)changedCenterViewController:(MenuItemModel *)menuItem {
+
+  AppDelegate *appDelegate =
+      (AppDelegate *)[[UIApplication sharedApplication] delegate];
+  if (![appDelegate.window.rootViewController
+          isKindOfClass:[MMDrawerController class]]) {
+    return;
+  }
+
+  MMDrawerController *mainVc =
+      (MMDrawerController *)appDelegate.window.rootViewController;
+  if (menuItem.isSelected) {
+    [mainVc closeDrawerAnimated:nil completion:nil];
+    return;
+  }
+
+  UIViewController *vc = nil;
+  switch (menuItem.menuType) {
+  case MenuItemType_All: {
+    TopicViewController *topicVC =
+        [[TopicViewController alloc] initWithNibName:nil bundle:nil];
+    topicVC.menuItem = menuItem;
+    vc = topicVC;
+  } break;
+  case MenuItemType_Ask: {
+    TopicViewController *topicVC =
+        [[TopicViewController alloc] initWithNibName:nil bundle:nil];
+    topicVC.menuItem = menuItem;
+    vc = topicVC;
+  } break;
+  case MenuItemType_Share: {
+    TopicViewController *topicVC =
+        [[TopicViewController alloc] initWithNibName:nil bundle:nil];
+    topicVC.menuItem = menuItem;
+    vc = topicVC;
+  } break;
+  case MenuItemType_Job: {
+    TopicViewController *topicVC =
+        [[TopicViewController alloc] initWithNibName:nil bundle:nil];
+    topicVC.menuItem = menuItem;
+    vc = topicVC;
+  } break;
+  case MenuItemType_Good: {
+    TopicViewController *topicVC =
+        [[TopicViewController alloc] initWithNibName:nil bundle:nil];
+    topicVC.menuItem = menuItem;
+    vc = topicVC;
+  } break;
+  case MenuItemType_Message:
+    vc = [[MessageViewController alloc] initWithNibName:nil bundle:nil];
+    break;
+  default:
+    break;
+  }
+  [_menuItemArray
+      enumerateObjectsUsingBlock:^(MenuItemModel *obj, NSUInteger idx,
+                                   BOOL *_Nonnull stop) {
+        obj.isSelected = NO;
+      }];
+  menuItem.isSelected = YES;
+
+  UINavigationController *centerNaviVC =
+      [[UINavigationController alloc] initWithRootViewController:vc];
+  [mainVc closeDrawerAnimated:YES
+                   completion:^(BOOL finished) {
+                     mainVc.centerViewController = centerNaviVC;
+                   }];
 }
 
 @end

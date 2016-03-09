@@ -7,8 +7,9 @@
 //
 
 #import <JSONModel/JSONModel.h>
-
 @interface VerifyTokenResult : JSONModel
 @property(nonatomic, assign) BOOL success;
+@property(nonatomic, strong) NSString *avatar_url;
 @property(nonatomic, strong) NSString *loginname;
+@property(nonatomic, strong) NSString *userId;
 @end

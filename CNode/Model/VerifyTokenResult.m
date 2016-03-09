@@ -9,6 +9,12 @@
 #import "VerifyTokenResult.h"
 
 @implementation VerifyTokenResult
++ (JSONKeyMapper *)keyMapper {
+  return [[JSONKeyMapper alloc] initWithDictionary:@{
+    @"id" : @"userId",
+  }];
+}
+
 + (BOOL)propertyIsOptional:(NSString *)propertyName {
   return YES;
 }

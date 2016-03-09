@@ -6,15 +6,17 @@
 //  Copyright © 2016年 Freedom. All rights reserved.
 //
 
-#import "LeftItemCell.h"
-@implementation LeftItemCellUserData
+#import "MenuItemCell.h"
+
+@implementation MenuItemCellUserData
 @end
-@interface LeftItemCell ()
+@interface MenuItemCell ()
 @property(nonatomic, strong) UILabel *nameLabel;
 @property(nonatomic, strong) UIImageView *itemImageView;
+@property(nonatomic, strong) UILabel *badgeLabel;
 @end
 
-@implementation LeftItemCell
+@implementation MenuItemCell
 - (instancetype)initWithStyle:(UITableViewCellStyle)style
               reuseIdentifier:(NSString *)reuseIdentifier {
   self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
@@ -27,11 +29,20 @@
     self.nameLabel.textColor = [UIColor ex_mainTextColor];
     self.nameLabel.textAlignment = NSTextAlignmentLeft;
 
+    self.badgeLabel = [UILabel new];
+    self.badgeLabel.font = Font_12;
+    self.badgeLabel.textColor = [UIColor whiteColor];
+    self.badgeLabel.textAlignment = NSTextAlignmentCenter;
+    self.badgeLabel.backgroundColor = [UIColor redColor];
+    self.badgeLabel.layer.cornerRadius = 4;
+    self.badgeLabel.clipsToBounds = YES;
+
     self.itemImageView = [[UIImageView alloc] init];
 
     self.clipsToBounds = YES;
     [self.contentView addSubview:self.itemImageView];
     [self.contentView addSubview:self.nameLabel];
+    [self.contentView addSubview:self.badgeLabel];
     [self makeConstraint];
   }
   return self;
@@ -48,6 +59,11 @@
     make.centerY.equalTo(self.contentView);
     make.width.mas_equalTo(25);
     make.height.mas_equalTo(25);
+  }];
+
+  [self.badgeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    make.right.equalTo(self.contentView).offset(15);
+    make.centerY.equalTo(self.contentView);
   }];
 }
 
@@ -69,17 +85,31 @@
 }
 
 - (BOOL)shouldUpdateCellWithObject:(NICellObject *)object {
-  self.userData = (LeftItemCellUserData *)object.userInfo;
-  self.nameLabel.text = self.userData.name;
-  self.itemImageView.image = [UIImage imageNamed:self.userData.image];
+  self.userData = (MenuItemCellUserData *)object.userInfo;
+  if (self.userData.menuItem.isSelected) {
+    self.backgroundColor = [UIColor ex_globalBackgroundColor];
+    self.nameLabel.font = Font_15_B;
+  } else {
+    self.backgroundColor = [UIColor whiteColor];
+    self.nameLabel.font = Font_13;
+  }
+  self.nameLabel.text = self.userData.menuItem.name;
+  self.itemImageView.image = [UIImage imageNamed:self.userData.menuItem.image];
+  if (self.userData.menuItem.badgeCount > 0) {
+    self.badgeLabel.hidden = NO;
+    self.badgeLabel.text =
+        [NSString stringWithFormat:@"%ld", self.userData.menuItem.badgeCount];
+  } else {
+    self.badgeLabel.hidden = YES;
+  }
   [self setNeedsLayout];
   return YES;
 }
 
 + (NICellObject *)createObject:(id)_delegate userData:(id)_userData {
-  LeftItemCellUserData *userData = [[LeftItemCellUserData alloc] init];
+  MenuItemCellUserData *userData = [[MenuItemCellUserData alloc] init];
   NICellObject *cellObj =
-      [[NICellObject alloc] initWithCellClass:[LeftItemCell class]
+      [[NICellObject alloc] initWithCellClass:[MenuItemCell class]
                                      userInfo:userData];
   return cellObj;
 }

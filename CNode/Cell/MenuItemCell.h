@@ -7,13 +7,14 @@
 //
 
 #import "FDTableViewCell.h"
-@interface LeftItemCellUserData : NSObject
-@property(nonatomic, strong) NSString *name;
-@property(nonatomic, strong) NSString *image;
+#import "MenuItemModel.h"
+
+@interface MenuItemCellUserData : NSObject
+@property(nonatomic, strong) MenuItemModel *menuItem;
 @end
 
-@interface LeftItemCell : FDTableViewCell
-@property(nonatomic, strong) LeftItemCellUserData *userData;
+@interface MenuItemCell : FDTableViewCell
+@property(nonatomic, strong) MenuItemCellUserData *userData;
 
 + (NICellObject *)createObject:(id)_delegate userData:(id)_userData;
 @end

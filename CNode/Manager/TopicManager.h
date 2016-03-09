@@ -21,4 +21,13 @@ typedef void (^TopicManagerRequestCompletedBlock)(id data, NSError *error);
 - (void)requestTopicDetailWithId:(NSString *)topicId
                   completedBlock:
                       (TopicManagerRequestCompletedBlock)completedBlock;
+
+- (void)collectTopic:(NSString *)topicId
+      completedBlock:(TopicManagerRequestCompletedBlock)completedBlock;
+
+- (void)decollectTopic:(NSString *)topicId
+        completedBlock:(TopicManagerRequestCompletedBlock)completedBlock;
+
+- (void)upOrDownTheReply:(NSString *)replyId
+          completedBlock:(TopicManagerRequestCompletedBlock)completedBlock;
 @end

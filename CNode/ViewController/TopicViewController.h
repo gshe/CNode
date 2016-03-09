@@ -7,7 +7,8 @@
 //
 
 #import "FDTableViewController.h"
+#import "MenuItemModel.h"
 
 @interface TopicViewController : FDTableViewController
-
+@property(nonatomic, strong) MenuItemModel *menuItem;
 @end

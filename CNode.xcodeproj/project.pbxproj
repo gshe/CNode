@@ -8,9 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		4C74E2E70B300A74425B4E51 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B73538CAB33EDE0329F5C6B /* libPods.a */; };
-		842106581C8FBD800071AE40 /* LeftItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 842106571C8FBD800071AE40 /* LeftItemCell.m */; };
+		842106581C8FBD800071AE40 /* MenuItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 842106571C8FBD800071AE40 /* MenuItemCell.m */; };
 		8421065B1C8FCA110071AE40 /* RecommendersView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8421065A1C8FCA110071AE40 /* RecommendersView.m */; };
 		8421065E1C8FF1D40071AE40 /* TextInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8421065D1C8FF1D40071AE40 /* TextInputView.m */; };
+		8421066E1C900D360071AE40 /* MessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8421066D1C900D360071AE40 /* MessageViewController.m */; };
+		842106711C90136E0071AE40 /* MessageListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 842106701C90136E0071AE40 /* MessageListViewController.m */; };
+		842106741C90163D0071AE40 /* MessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 842106731C90163D0071AE40 /* MessageModel.m */; };
+		842106771C9016570071AE40 /* MessageListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 842106761C9016570071AE40 /* MessageListModel.m */; };
+		8421067A1C9017C50071AE40 /* MessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 842106791C9017C50071AE40 /* MessageCell.m */; };
+		8421067D1C901E5A0071AE40 /* MenuItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8421067C1C901E5A0071AE40 /* MenuItemModel.m */; };
+		842106801C9030880071AE40 /* UpOrDownResultModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8421067F1C9030880071AE40 /* UpOrDownResultModel.m */; };
 		8443343E1C8D299A005C78A4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8443343D1C8D299A005C78A4 /* main.m */; };
 		844334411C8D299A005C78A4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 844334401C8D299A005C78A4 /* AppDelegate.m */; };
 		844334491C8D299A005C78A4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 844334481C8D299A005C78A4 /* Assets.xcassets */; };
@@ -64,12 +71,26 @@
 /* Begin PBXFileReference section */
 		0B73538CAB33EDE0329F5C6B /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		284660B10864B2F5F876DBC6 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
-		842106561C8FBD800071AE40 /* LeftItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftItemCell.h; sourceTree = "<group>"; };
-		842106571C8FBD800071AE40 /* LeftItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftItemCell.m; sourceTree = "<group>"; };
+		842106561C8FBD800071AE40 /* MenuItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuItemCell.h; sourceTree = "<group>"; };
+		842106571C8FBD800071AE40 /* MenuItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuItemCell.m; sourceTree = "<group>"; };
 		842106591C8FCA110071AE40 /* RecommendersView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecommendersView.h; sourceTree = "<group>"; };
 		8421065A1C8FCA110071AE40 /* RecommendersView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecommendersView.m; sourceTree = "<group>"; };
 		8421065C1C8FF1D40071AE40 /* TextInputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextInputView.h; sourceTree = "<group>"; };
 		8421065D1C8FF1D40071AE40 /* TextInputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextInputView.m; sourceTree = "<group>"; };
+		8421066C1C900D360071AE40 /* MessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageViewController.h; sourceTree = "<group>"; };
+		8421066D1C900D360071AE40 /* MessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageViewController.m; sourceTree = "<group>"; };
+		8421066F1C90136E0071AE40 /* MessageListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageListViewController.h; sourceTree = "<group>"; };
+		842106701C90136E0071AE40 /* MessageListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageListViewController.m; sourceTree = "<group>"; };
+		842106721C90163D0071AE40 /* MessageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageModel.h; sourceTree = "<group>"; };
+		842106731C90163D0071AE40 /* MessageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageModel.m; sourceTree = "<group>"; };
+		842106751C9016570071AE40 /* MessageListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageListModel.h; sourceTree = "<group>"; };
+		842106761C9016570071AE40 /* MessageListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageListModel.m; sourceTree = "<group>"; };
+		842106781C9017C50071AE40 /* MessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageCell.h; sourceTree = "<group>"; };
+		842106791C9017C50071AE40 /* MessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageCell.m; sourceTree = "<group>"; };
+		8421067B1C901E5A0071AE40 /* MenuItemModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuItemModel.h; sourceTree = "<group>"; };
+		8421067C1C901E5A0071AE40 /* MenuItemModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuItemModel.m; sourceTree = "<group>"; };
+		8421067E1C9030880071AE40 /* UpOrDownResultModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpOrDownResultModel.h; sourceTree = "<group>"; };
+		8421067F1C9030880071AE40 /* UpOrDownResultModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpOrDownResultModel.m; sourceTree = "<group>"; };
 		844334391C8D299A005C78A4 /* CNode.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CNode.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8443343D1C8D299A005C78A4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8443343F1C8D299A005C78A4 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -246,8 +267,10 @@
 				844334CF1C8D4C0C005C78A4 /* TopicItemCell.m */,
 				844334581C8D2B5E005C78A4 /* FDTableViewCell.h */,
 				844334591C8D2B5E005C78A4 /* FDTableViewCell.m */,
-				842106561C8FBD800071AE40 /* LeftItemCell.h */,
-				842106571C8FBD800071AE40 /* LeftItemCell.m */,
+				842106561C8FBD800071AE40 /* MenuItemCell.h */,
+				842106571C8FBD800071AE40 /* MenuItemCell.m */,
+				842106781C9017C50071AE40 /* MessageCell.h */,
+				842106791C9017C50071AE40 /* MessageCell.m */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -303,6 +326,10 @@
 				844334E51C8D7CA1005C78A4 /* RepliesListViewController.m */,
 				844334EA1C8D86F6005C78A4 /* UserInfoViewController.h */,
 				844334EB1C8D86F6005C78A4 /* UserInfoViewController.m */,
+				8421066C1C900D360071AE40 /* MessageViewController.h */,
+				8421066D1C900D360071AE40 /* MessageViewController.m */,
+				8421066F1C90136E0071AE40 /* MessageListViewController.h */,
+				842106701C90136E0071AE40 /* MessageListViewController.m */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -358,6 +385,14 @@
 				844334EE1C8D870A005C78A4 /* UserInfoModel.m */,
 				844335061C8E7AA5005C78A4 /* VerifyTokenResult.h */,
 				844335071C8E7AA5005C78A4 /* VerifyTokenResult.m */,
+				842106721C90163D0071AE40 /* MessageModel.h */,
+				842106731C90163D0071AE40 /* MessageModel.m */,
+				842106751C9016570071AE40 /* MessageListModel.h */,
+				842106761C9016570071AE40 /* MessageListModel.m */,
+				8421067B1C901E5A0071AE40 /* MenuItemModel.h */,
+				8421067C1C901E5A0071AE40 /* MenuItemModel.m */,
+				8421067E1C9030880071AE40 /* UpOrDownResultModel.h */,
+				8421067F1C9030880071AE40 /* UpOrDownResultModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -524,6 +559,7 @@
 				844334EC1C8D86F6005C78A4 /* UserInfoViewController.m in Sources */,
 				8443345C1C8D2B5E005C78A4 /* FDTableViewCell.m in Sources */,
 				844334D01C8D4C0C005C78A4 /* TopicItemCell.m in Sources */,
+				8421066E1C900D360071AE40 /* MessageViewController.m in Sources */,
 				844334D91C8D61DC005C78A4 /* DetailViewController.m in Sources */,
 				8443346E1C8D2B66005C78A4 /* UIColor+Extents.m in Sources */,
 				844334AE1C8D2C17005C78A4 /* PopupBaseView.m in Sources */,
@@ -535,8 +571,9 @@
 				844334D31C8D4DD9005C78A4 /* TopicViewController.m in Sources */,
 				844334891C8D2B6D005C78A4 /* MainViewController.m in Sources */,
 				844334BD1C8D2F64005C78A4 /* TopicManager.m in Sources */,
-				842106581C8FBD800071AE40 /* LeftItemCell.m in Sources */,
+				842106581C8FBD800071AE40 /* MenuItemCell.m in Sources */,
 				844334701C8D2B66005C78A4 /* XMDeveloperHelper.m in Sources */,
+				842106711C90136E0071AE40 /* MessageListViewController.m in Sources */,
 				8443348A1C8D2B6D005C78A4 /* MMExampleDrawerVisualStateManager.m in Sources */,
 				844334C01C8D2F72005C78A4 /* UserManager.m in Sources */,
 				844334B91C8D2C17005C78A4 /* XWindowStack.m in Sources */,
@@ -544,17 +581,22 @@
 				844334DF1C8D6919005C78A4 /* ReplyInfoModel.m in Sources */,
 				844334DC1C8D64A6005C78A4 /* WFLoadingView.m in Sources */,
 				844334F81C8E77A5005C78A4 /* SubLBXScanViewController.m in Sources */,
+				8421067A1C9017C50071AE40 /* MessageCell.m in Sources */,
 				844334C41C8D3031005C78A4 /* TopicInfoModel.m in Sources */,
 				844334861C8D2B6D005C78A4 /* FDWebViewController.m in Sources */,
 				844334B71C8D2C17005C78A4 /* WFToastView.m in Sources */,
 				844334E61C8D7CA1005C78A4 /* RepliesListViewController.m in Sources */,
+				842106801C9030880071AE40 /* UpOrDownResultModel.m in Sources */,
 				844334841C8D2B6D005C78A4 /* FDTableViewController.m in Sources */,
+				842106771C9016570071AE40 /* MessageListModel.m in Sources */,
 				844334E91C8D7D18005C78A4 /* CommentItemCell.m in Sources */,
 				8443350B1C8ED97F005C78A4 /* FilterView.m in Sources */,
+				8421067D1C901E5A0071AE40 /* MenuItemModel.m in Sources */,
 				844335081C8E7AA5005C78A4 /* VerifyTokenResult.m in Sources */,
 				8443346B1C8D2B66005C78A4 /* base64.m in Sources */,
 				844334411C8D299A005C78A4 /* AppDelegate.m in Sources */,
 				8443346F1C8D2B66005C78A4 /* WFToolKit.m in Sources */,
+				842106741C90163D0071AE40 /* MessageModel.m in Sources */,
 				8421065B1C8FCA110071AE40 /* RecommendersView.m in Sources */,
 				844334CD1C8D33E4005C78A4 /* TopicListModel.m in Sources */,
 				844335051C8E77EF005C78A4 /* LBXAlertAction.m in Sources */,

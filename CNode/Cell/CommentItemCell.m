@@ -16,7 +16,7 @@
 @property(nonatomic, strong) UILabel *title;
 @property(nonatomic, strong) UILabel *pubDate;
 @property(nonatomic, strong) UILabel *upsCount;
-@property(nonatomic, strong) UIImageView *upsImageView;
+@property(nonatomic, strong) UIButton *upsBtnView;
 @end
 
 @implementation CommentItemCell
@@ -57,15 +57,16 @@
     self.upsCount.textColor = [UIColor ex_subTextColor];
     self.upsCount.textAlignment = NSTextAlignmentRight;
 
-    self.upsImageView = [[UIImageView alloc] init];
-    self.upsImageView.image = [UIImage imageNamed:@"thumb_up"];
-
+    self.upsBtnView = [[UIButton alloc] init];
+    [self.upsBtnView addTarget:self
+                        action:@selector(upButtonPressed:)
+              forControlEvents:UIControlEventTouchUpInside];
     self.clipsToBounds = YES;
     [self.contentView addSubview:self.title];
     [self.contentView addSubview:self.authorName];
     [self.contentView addSubview:self.pubDate];
     [self.contentView addSubview:self.authorAvatar];
-    [self.contentView addSubview:self.upsImageView];
+    [self.contentView addSubview:self.upsBtnView];
     [self.contentView addSubview:self.upsCount];
     [self makeConstraint];
   }
@@ -82,15 +83,15 @@
   [self.authorName mas_makeConstraints:^(MASConstraintMaker *make) {
     make.top.equalTo(self.authorAvatar);
     make.left.equalTo(self.authorAvatar.mas_right).offset(15);
-    make.right.lessThanOrEqualTo(self.upsImageView.mas_left).offset(-15);
+    make.right.lessThanOrEqualTo(self.upsBtnView.mas_left).offset(-15);
   }];
 
   [self.upsCount mas_makeConstraints:^(MASConstraintMaker *make) {
-    make.centerY.equalTo(self.upsImageView);
+    make.centerY.equalTo(self.upsBtnView);
     make.right.equalTo(self.contentView).offset(-15);
   }];
 
-  [self.upsImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+  [self.upsBtnView mas_makeConstraints:^(MASConstraintMaker *make) {
     make.top.equalTo(self.authorAvatar);
     make.right.equalTo(self.upsCount.mas_left).offset(-5);
     make.height.mas_equalTo(18);
@@ -145,6 +146,14 @@
     self.title.attributedText = attrStr;
   }
 
+  if ([[UserManager sharedInstance] isUserUpTheReplay:self.userData.reply]) {
+    [self.upsBtnView setImage:[UIImage imageNamed:@"thumb_x"]
+                     forState:UIControlStateNormal];
+  } else {
+    [self.upsBtnView setImage:[UIImage imageNamed:@"thumb_up"]
+                     forState:UIControlStateNormal];
+  }
+
   if (self.userData.reply.create_at) {
     self.pubDate.hidden = NO;
     self.pubDate.text = timeStringFromNow(self.userData.reply.create_at);
@@ -161,6 +170,12 @@
         placeholderImage:[UIImage imageNamed:@"avatar_default"]];
   [self setNeedsLayout];
   return YES;
+}
+- (void)upButtonPressed:(id)sender {
+  if ([self.userData.delegate
+          respondsToSelector:@selector(commentCell:upImageClicked:)]) {
+    [self.userData.delegate commentCell:self upImageClicked:self.userData];
+  }
 }
 
 + (NICellObject *)createObject:(id)_delegate userData:(id)_userData {

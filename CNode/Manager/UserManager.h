@@ -18,6 +18,9 @@ typedef void (^UserManagerRequestCompletedBlock)(id data, NSError *error);
 + (instancetype)sharedInstance;
 
 @property(nonatomic, strong) UserInfoModel *curUser;
+@property(nonatomic, strong, readonly) NSString *token;
+@property(nonatomic, assign) NSInteger unreadMessageCount;
+@property(nonatomic, strong) NSString *userId;
 
 - (BOOL)isUserLogin;
 
@@ -27,4 +30,14 @@ typedef void (^UserManagerRequestCompletedBlock)(id data, NSError *error);
 - (void)requestUserWithLoginName:(NSString *)loginName
                   completedBlock:
                       (UserManagerRequestCompletedBlock)completedBlock;
+
+- (void)requestUserUnReadMessageCount:
+        (UserManagerRequestCompletedBlock)completedBlock;
+
+- (void)requestUserMakeAllAsRead:
+        (UserManagerRequestCompletedBlock)completedBlock;
+
+- (void)requestUserMessage:(UserManagerRequestCompletedBlock)completedBlock;
+
+- (BOOL)isUserUpTheReplay:(ReplyInfoModel *)reply;
 @end
