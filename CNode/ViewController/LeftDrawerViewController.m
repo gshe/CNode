@@ -12,6 +12,8 @@
 #import "AppDelegate.h"
 #import "TopicViewController.h"
 #import "MessageViewController.h"
+#import "UserInfoViewController.h"
+#import "UIViewController+MMDrawerController.h"
 
 @interface LeftDrawerViewController () <NIMutableTableViewModelDelegate,
                                         UITableViewDelegate>
@@ -20,6 +22,8 @@
 @property(nonatomic, strong) UIImageView *avatarImg;
 @property(nonatomic, strong) UILabel *nameLabel;
 @property(nonatomic, strong) UILabel *scoreLabel;
+@property(nonatomic, strong) UIButton *logoutButton;
+
 @property(nonatomic, strong) NIMutableTableViewModel *model;
 @property(nonatomic, strong) NITableViewActions *action;
 @property(nonatomic, strong) NSArray *menuItemArray;
@@ -141,10 +145,17 @@
   _nameLabel.text = @"请登录";
   _scoreLabel = [UILabel new];
   _scoreLabel.hidden = YES;
+  _logoutButton = [UIButton buttonWithType:UIButtonTypeCustom];
+  [_logoutButton setTitle:@"注销" forState:UIControlStateNormal];
+  _logoutButton.hidden = YES;
+  [_logoutButton addTarget:self
+                    action:@selector(logoutButtonPressed:)
+          forControlEvents:UIControlEventTouchUpInside];
 
   [avatarview addSubview:_nameLabel];
   [_topView addSubview:avatarview];
   [_topView addSubview:_scoreLabel];
+  [_topView addSubview:_logoutButton];
 
   [avatarview mas_makeConstraints:^(MASConstraintMaker *make) {
     make.left.equalTo(_topView).offset(15);
@@ -170,20 +181,43 @@
     make.top.equalTo(_nameLabel.mas_bottom).offset(15);
 
   }];
+  [_logoutButton mas_makeConstraints:^(MASConstraintMaker *make) {
+    make.right.equalTo(_topView.mas_right).offset(-5);
+    make.bottom.equalTo(_topView.mas_bottom).offset(-5);
+
+  }];
 }
 
 #pragma mark - Private methods -
+- (void)logoutButtonPressed:(id)sender {
+  [[UserManager sharedInstance] logout];
+}
 
 - (void)loginButtonClicked:(id)sender {
+  [self.mm_drawerController
+      closeDrawerAnimated:YES
+               completion:^(BOOL finished) {
+                 if ([[UserManager sharedInstance] isUserLogin]) {
+                   [self gotoUserInfoVC];
+                 } else {
+                   [self gotoLoginVC];
+                 }
+               }];
+}
+
+- (void)gotoLoginVC {
   LoginViewController *loginVC =
       [[LoginViewController alloc] initWithNibName:nil bundle:nil];
   UINavigationController *naviVC =
       [[UINavigationController alloc] initWithRootViewController:loginVC];
-  [self presentViewController:naviVC
-                     animated:YES
-                   completion:^{
+  [self presentViewController:naviVC animated:YES completion:nil];
+}
 
-                   }];
+- (void)gotoUserInfoVC {
+  UserInfoViewController *userVC =
+      [[UserInfoViewController alloc] initWithNibName:nil bundle:nil];
+  userVC.loginName = [UserManager sharedInstance].curUser.loginname;
+  [self.navigationController pushViewController:userVC animated:YES];
 }
 
 - (void)dealwith:(UIButton *)dealBtn {
@@ -203,10 +237,12 @@
     _scoreLabel.text =
         [NSString stringWithFormat:@"积分:%ld",
                                    [UserManager sharedInstance].curUser.score];
+    _logoutButton.hidden = NO;
   } else {
     self.avatarImg.image = [UIImage imageNamed:@"Contacts"];
     _nameLabel.text = @"请登录";
     _scoreLabel.hidden = YES;
+    _logoutButton.hidden = YES;
   }
 
   _messageMenu.badgeCount = [UserManager sharedInstance].unreadMessageCount;
@@ -277,59 +313,25 @@
 }
 
 - (void)changedCenterViewController:(MenuItemModel *)menuItem {
-
-  AppDelegate *appDelegate =
-      (AppDelegate *)[[UIApplication sharedApplication] delegate];
-  if (![appDelegate.window.rootViewController
-          isKindOfClass:[MMDrawerController class]]) {
-    return;
-  }
-
-  MMDrawerController *mainVc =
-      (MMDrawerController *)appDelegate.window.rootViewController;
   if (menuItem.isSelected) {
-    [mainVc closeDrawerAnimated:nil completion:nil];
+    [self.mm_drawerController closeDrawerAnimated:YES completion:nil];
     return;
   }
 
   UIViewController *vc = nil;
-  switch (menuItem.menuType) {
-  case MenuItemType_All: {
+  if (menuItem.menuType == MenuItemType_All ||
+      menuItem.menuType == MenuItemType_Ask ||
+      menuItem.menuType == MenuItemType_Job ||
+      menuItem.menuType == MenuItemType_Share ||
+      menuItem.menuType == MenuItemType_Good) {
     TopicViewController *topicVC =
         [[TopicViewController alloc] initWithNibName:nil bundle:nil];
     topicVC.menuItem = menuItem;
     vc = topicVC;
-  } break;
-  case MenuItemType_Ask: {
-    TopicViewController *topicVC =
-        [[TopicViewController alloc] initWithNibName:nil bundle:nil];
-    topicVC.menuItem = menuItem;
-    vc = topicVC;
-  } break;
-  case MenuItemType_Share: {
-    TopicViewController *topicVC =
-        [[TopicViewController alloc] initWithNibName:nil bundle:nil];
-    topicVC.menuItem = menuItem;
-    vc = topicVC;
-  } break;
-  case MenuItemType_Job: {
-    TopicViewController *topicVC =
-        [[TopicViewController alloc] initWithNibName:nil bundle:nil];
-    topicVC.menuItem = menuItem;
-    vc = topicVC;
-  } break;
-  case MenuItemType_Good: {
-    TopicViewController *topicVC =
-        [[TopicViewController alloc] initWithNibName:nil bundle:nil];
-    topicVC.menuItem = menuItem;
-    vc = topicVC;
-  } break;
-  case MenuItemType_Message:
+  } else if (menuItem.menuType == MenuItemType_Message) {
     vc = [[MessageViewController alloc] initWithNibName:nil bundle:nil];
-    break;
-  default:
-    break;
   }
+
   [_menuItemArray
       enumerateObjectsUsingBlock:^(MenuItemModel *obj, NSUInteger idx,
                                    BOOL *_Nonnull stop) {
@@ -339,10 +341,11 @@
 
   UINavigationController *centerNaviVC =
       [[UINavigationController alloc] initWithRootViewController:vc];
-  [mainVc closeDrawerAnimated:YES
-                   completion:^(BOOL finished) {
-                     mainVc.centerViewController = centerNaviVC;
-                   }];
+  [self.mm_drawerController closeDrawerAnimated:YES
+                                     completion:^(BOOL finished) {
+                                       self.mm_drawerController
+                                           .centerViewController = centerNaviVC;
+                                     }];
 }
 
 @end

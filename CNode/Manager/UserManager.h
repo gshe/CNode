@@ -40,4 +40,5 @@ typedef void (^UserManagerRequestCompletedBlock)(id data, NSError *error);
 - (void)requestUserMessage:(UserManagerRequestCompletedBlock)completedBlock;
 
 - (BOOL)isUserUpTheReplay:(ReplyInfoModel *)reply;
+- (void)logout;
 @end

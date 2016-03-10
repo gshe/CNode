@@ -11,6 +11,7 @@
 #import "DetailViewController.h"
 #import "AppDelegate.h"
 #import "FilterView.h"
+#import "NewTopicViewController.h"
 
 @interface TopicViewController ()
 @property(nonatomic, assign) NSInteger pageIndex;
@@ -74,6 +75,9 @@
 //}
 
 - (void)addTopicPressed:(id)sender {
+  NewTopicViewController *addTopicVC =
+      [[NewTopicViewController alloc] initWithNibName:nil bundle:nil];
+  [self.navigationController pushViewController:addTopicVC animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

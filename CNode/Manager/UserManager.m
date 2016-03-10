@@ -99,6 +99,12 @@
   return _userId;
 }
 
+- (void)logout {
+  self.curUser = nil;
+  self.tokenVerify = nil;
+  [self storeVerifiedToken:self.token result:nil];
+}
+
 - (void)verifyToken:(NSString *)token
      completedBlock:(UserManagerRequestCompletedBlock)completedBlock {
   NSMutableDictionary *param = [NSMutableDictionary dictionary];

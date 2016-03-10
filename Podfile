@@ -18,6 +18,7 @@ pod 'FMDB'
 pod 'FLAnimatedImage', '~> 1.0.7'
 pod 'libextobjc'
 pod 'LBXScan'
+pod 'AHKActionSheet'
 
 target ‘CNode’ do
 

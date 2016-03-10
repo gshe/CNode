@@ -13,14 +13,18 @@
 #import "RepliesListViewController.h"
 #import "RecommendersView.h"
 #import "UserInfoViewController.h"
+#import "TextInputView.h"
+#import "WriteCommentResultModel.h"
 
-@interface DetailViewController () <UIWebViewDelegate, UIScrollViewDelegate>
+@interface DetailViewController () <UIWebViewDelegate, UIScrollViewDelegate,
+                                    UITextFieldDelegate>
 @property(nonatomic, strong) UIWebView *webView;
 @property(nonatomic, strong) UIView *containerView;
 @property(nonatomic, strong) RecommendersView *authorView;
 @property(nonatomic, strong) WFLoadingView *loadingView;
 @property(nonatomic, assign) BOOL isLoading;
 @property(nonatomic, strong) TopicInfoModel *curDetailTopic;
+@property(nonatomic, strong) UIView *commentView;
 @end
 
 @implementation DetailViewController
@@ -38,6 +42,9 @@
 - (void)configUI {
   self.containerView = [UIView new];
   [self.view addSubview:self.containerView];
+  _commentView = [UIView new];
+  _commentView.backgroundColor = [UIColor ex_globalBackgroundColor];
+  [_containerView addSubview:_commentView];
   _authorView = [[RecommendersView alloc] initWithFrame:CGRectZero];
   UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]
       initWithTarget:self
@@ -62,11 +69,18 @@
     make.top.equalTo(self.view);
     make.height.mas_equalTo(56);
   }];
+  [_commentView mas_makeConstraints:^(MASConstraintMaker *make) {
+    make.left.equalTo(self.view);
+    make.right.equalTo(self.view);
+    make.bottom.equalTo(self.view);
+    make.height.mas_equalTo(44);
+
+  }];
   [self.webView mas_makeConstraints:^(MASConstraintMaker *make) {
     make.left.equalTo(self.containerView);
     make.right.equalTo(self.containerView);
     make.top.equalTo(_authorView.mas_bottom);
-    make.bottom.equalTo(self.containerView);
+    make.bottom.equalTo(_commentView.mas_top);
   }];
 
   self.navigationItem.rightBarButtonItem =
@@ -74,7 +88,23 @@
                                        style:UIBarButtonItemStylePlain
                                       target:self
                                       action:@selector(commentPressed:)];
+  [self configCommentView];
   [self requestTopicDetail];
+}
+
+- (void)configCommentView {
+  UITextField *writeComment = [UITextField new];
+  writeComment.layer.cornerRadius = 5;
+  writeComment.placeholder = @"写评论";
+  writeComment.delegate = self;
+  writeComment.backgroundColor = [UIColor whiteColor];
+  [_commentView addSubview:writeComment];
+  [writeComment mas_makeConstraints:^(MASConstraintMaker *make) {
+    make.left.equalTo(_commentView).offset(15);
+    make.right.equalTo(_commentView).offset(-15);
+    make.centerY.equalTo(_commentView);
+    make.height.mas_equalTo(25);
+  }];
 }
 
 - (void)refreshUI {
@@ -224,38 +254,57 @@
 #pragma mark - UIScrollView Delegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
 
-  CGFloat offSetY = scrollView.contentOffset.y;
-
-  if (-offSetY <= 80 && -offSetY >= 0) {
-
-    if (-offSetY > 40 && !_webView.scrollView.isDragging) {
-
-      [self getPreviousNews];
-    }
-  } else if (-offSetY > 80) { //到－80 让webview不再能被拉动
-
-    _webView.scrollView.contentOffset = CGPointMake(0, -80);
-
-  } else if (offSetY <= 300) {
-  }
-
-  if (offSetY + kScreenHeight > scrollView.contentSize.height + 160 &&
-      !_webView.scrollView.isDragging) {
-
-    [self getNextNews];
-  }
-
-  if (offSetY >= 200) {
-
-    [[UIApplication sharedApplication]
-        setStatusBarStyle:UIStatusBarStyleDefault];
-
-  } else {
-
-    [[UIApplication sharedApplication]
-        setStatusBarStyle:UIStatusBarStyleLightContent];
-  }
+  //  CGFloat offSetY = scrollView.contentOffset.y;
+  //
+  //  if (-offSetY <= 80 && -offSetY >= 0) {
+  //
+  //    if (-offSetY > 40 && !_webView.scrollView.isDragging) {
+  //
+  //      [self getPreviousNews];
+  //    }
+  //  } else if (-offSetY > 80) { //到－80 让webview不再能被拉动
+  //
+  //    _webView.scrollView.contentOffset = CGPointMake(0, -80);
+  //
+  //  } else if (offSetY <= 300) {
+  //  }
+  //
+  //  if (offSetY + kScreenHeight > scrollView.contentSize.height + 160 &&
+  //      !_webView.scrollView.isDragging) {
+  //
+  //    [self getNextNews];
+  //  }
+  //
+  //  if (offSetY >= 200) {
+  //
+  //    [[UIApplication sharedApplication]
+  //        setStatusBarStyle:UIStatusBarStyleDefault];
+  //
+  //  } else {
+  //
+  //    [[UIApplication sharedApplication]
+  //        setStatusBarStyle:UIStatusBarStyleLightContent];
+  //  }
 }
+- (void)writeCommentToTopic:(NSString *)comment {
+  if (!comment || comment.length == 0) {
+    [WFToastView showMsg:@"字段没填哦！" inView:nil];
+    return;
+  }
+
+  [self showHUD];
+  FDWeakSelf;
+  [[TopicManager sharedInstance]
+      writeCommentToTopic:self.topicId
+                  replyId:nil
+                  content:comment
+           completedBlock:^(WriteCommentResultModel *data, NSError *error) {
+             FDStrongSelf;
+             [self requestTopicDetail];
+             [self hideAllHUDs];
+           }];
+}
+
 #pragma mark - Getter
 - (WFLoadingView *)loadingView {
 
@@ -266,5 +315,18 @@
 
   return _loadingView;
 }
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+  [textField resignFirstResponder];
+  TextInputView *textInputView =
+      [[TextInputView alloc] initWithFrame:CGRectZero];
+  textInputView.placeholder = @"输入评论";
+  textInputView.textInputViewEnd = ^(NSString *comment) {
+    [self writeCommentToTopic:comment];
+  };
+        [textInputView show];
+	return NO;
+}
+
 
 @end

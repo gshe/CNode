@@ -10,6 +10,7 @@
 #import "ReplyInfoModel.h"
 
 @interface ReplyDetailViewController : FDViewController
+@property(nonatomic, strong) TopicInfoModel *topic;
 @property(nonatomic, strong) ReplyInfoModel *curReply;
 @property(nonatomic, strong) NSArray *replyList;
 @end

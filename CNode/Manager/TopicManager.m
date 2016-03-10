@@ -9,6 +9,7 @@
 #import "TopicManager.h"
 #import "AFNetworking.h"
 #import "UpOrDownResultModel.h"
+#import "PublishTopicResultModel.h"
 
 //#define kBaseUrl @"https://cnodejs.org/api/v1/"
 #define kBaseUrl @"http://ionichina.com/api/v1"
@@ -174,6 +175,76 @@
         UpOrDownResultModel *data =
             [[UpOrDownResultModel alloc] initWithDictionary:responseObject
                                                       error:&error];
+        if (data && !error) {
+          if (completedBlock) {
+            completedBlock(data, nil);
+          }
+        } else {
+          if (completedBlock) {
+            completedBlock(nil, error);
+          }
+        }
+      }
+      failure:^(NSURLSessionDataTask *_Nullable task, NSError *_Nonnull error) {
+        if (completedBlock) {
+          completedBlock(nil, error);
+        }
+      }];
+}
+
+- (void)publicTopic:(NSString *)title
+                tab:(NSString *)tab
+            content:(NSString *)content
+     completedBlock:(TopicManagerRequestCompletedBlock)completedBlock {
+  NSMutableDictionary *param = [NSMutableDictionary dictionary];
+  [param setObject:[UserManager sharedInstance].token forKey:@"accesstoken"];
+  [param setObject:title forKey:@"title"];
+  [param setObject:tab forKey:@"tab"];
+  [param setObject:content forKey:@"content"];
+  [_sessionManager POST:@"topics"
+      parameters:param
+      success:^(NSURLSessionDataTask *_Nonnull task,
+                id _Nonnull responseObject) {
+        NSError *error;
+        PublishTopicResultModel *data =
+            [[PublishTopicResultModel alloc] initWithDictionary:responseObject
+                                                          error:&error];
+        if (data && !error) {
+          if (completedBlock) {
+            completedBlock(data, nil);
+          }
+        } else {
+          if (completedBlock) {
+            completedBlock(nil, error);
+          }
+        }
+      }
+      failure:^(NSURLSessionDataTask *_Nullable task, NSError *_Nonnull error) {
+        if (completedBlock) {
+          completedBlock(nil, error);
+        }
+      }];
+}
+
+- (void)writeCommentToTopic:(NSString *)topicId
+                    replyId:(NSString *)replyId
+                    content:(NSString *)comment
+             completedBlock:(TopicManagerRequestCompletedBlock)completedBlock {
+  NSMutableDictionary *param = [NSMutableDictionary dictionary];
+  [param setObject:[UserManager sharedInstance].token forKey:@"accesstoken"];
+  [param setObject:comment forKey:@"content"];
+  if (replyId) {
+    [param setObject:replyId forKey:@"reply_id"];
+  }
+  NSString *urlStr = [NSString stringWithFormat:@"topic/%@/replies", topicId];
+  [_sessionManager POST:urlStr
+      parameters:param
+      success:^(NSURLSessionDataTask *_Nonnull task,
+                id _Nonnull responseObject) {
+        NSError *error;
+        PublishTopicResultModel *data =
+            [[PublishTopicResultModel alloc] initWithDictionary:responseObject
+                                                          error:&error];
         if (data && !error) {
           if (completedBlock) {
             completedBlock(data, nil);

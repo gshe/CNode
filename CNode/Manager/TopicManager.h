@@ -30,4 +30,14 @@ typedef void (^TopicManagerRequestCompletedBlock)(id data, NSError *error);
 
 - (void)upOrDownTheReply:(NSString *)replyId
           completedBlock:(TopicManagerRequestCompletedBlock)completedBlock;
+
+- (void)publicTopic:(NSString *)title
+                tab:(NSString *)tab
+            content:(NSString *)content
+     completedBlock:(TopicManagerRequestCompletedBlock)completedBlock;
+
+- (void)writeCommentToTopic:(NSString *)topicId
+                    replyId:(NSString *)replyId
+                    content:(NSString *)comment
+             completedBlock:(TopicManagerRequestCompletedBlock)completedBlock;
 @end

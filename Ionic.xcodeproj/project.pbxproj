@@ -18,6 +18,9 @@
 		8421067A1C9017C50071AE40 /* MessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 842106791C9017C50071AE40 /* MessageCell.m */; };
 		8421067D1C901E5A0071AE40 /* MenuItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8421067C1C901E5A0071AE40 /* MenuItemModel.m */; };
 		842106801C9030880071AE40 /* UpOrDownResultModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8421067F1C9030880071AE40 /* UpOrDownResultModel.m */; };
+		842106831C9107A90071AE40 /* NewTopicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 842106821C9107A90071AE40 /* NewTopicViewController.m */; };
+		842106861C9113C90071AE40 /* PublishTopicResultModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 842106851C9113C90071AE40 /* PublishTopicResultModel.m */; };
+		842106891C911CBF0071AE40 /* WriteCommentResultModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 842106881C911CBF0071AE40 /* WriteCommentResultModel.m */; };
 		8443343E1C8D299A005C78A4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8443343D1C8D299A005C78A4 /* main.m */; };
 		844334411C8D299A005C78A4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 844334401C8D299A005C78A4 /* AppDelegate.m */; };
 		844334491C8D299A005C78A4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 844334481C8D299A005C78A4 /* Assets.xcassets */; };
@@ -91,7 +94,13 @@
 		8421067C1C901E5A0071AE40 /* MenuItemModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuItemModel.m; sourceTree = "<group>"; };
 		8421067E1C9030880071AE40 /* UpOrDownResultModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpOrDownResultModel.h; sourceTree = "<group>"; };
 		8421067F1C9030880071AE40 /* UpOrDownResultModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpOrDownResultModel.m; sourceTree = "<group>"; };
-		844334391C8D299A005C78A4 /* CNode.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CNode.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		842106811C9107A90071AE40 /* NewTopicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewTopicViewController.h; sourceTree = "<group>"; };
+		842106821C9107A90071AE40 /* NewTopicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewTopicViewController.m; sourceTree = "<group>"; };
+		842106841C9113C90071AE40 /* PublishTopicResultModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PublishTopicResultModel.h; sourceTree = "<group>"; };
+		842106851C9113C90071AE40 /* PublishTopicResultModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PublishTopicResultModel.m; sourceTree = "<group>"; };
+		842106871C911CBF0071AE40 /* WriteCommentResultModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WriteCommentResultModel.h; sourceTree = "<group>"; };
+		842106881C911CBF0071AE40 /* WriteCommentResultModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WriteCommentResultModel.m; sourceTree = "<group>"; };
+		844334391C8D299A005C78A4 /* Ionic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ionic.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8443343D1C8D299A005C78A4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8443343F1C8D299A005C78A4 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		844334401C8D299A005C78A4 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -125,7 +134,7 @@
 		844334801C8D2B6D005C78A4 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		844334811C8D2B6D005C78A4 /* MMExampleDrawerVisualStateManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMExampleDrawerVisualStateManager.h; sourceTree = "<group>"; };
 		844334821C8D2B6D005C78A4 /* MMExampleDrawerVisualStateManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMExampleDrawerVisualStateManager.m; sourceTree = "<group>"; };
-		8443348B1C8D2B84005C78A4 /* CNode-PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CNode-PrefixHeader.pch"; sourceTree = "<group>"; };
+		8443348B1C8D2B84005C78A4 /* Ionic-PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Ionic-PrefixHeader.pch"; sourceTree = "<group>"; };
 		8443348D1C8D2C17005C78A4 /* AreaPickView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AreaPickView.h; sourceTree = "<group>"; };
 		8443348E1C8D2C17005C78A4 /* AreaPickView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AreaPickView.m; sourceTree = "<group>"; };
 		844334931C8D2C17005C78A4 /* PopupBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopupBaseView.h; sourceTree = "<group>"; };
@@ -211,7 +220,7 @@
 		844334301C8D299A005C78A4 = {
 			isa = PBXGroup;
 			children = (
-				8443343B1C8D299A005C78A4 /* CNode */,
+				8443343B1C8D299A005C78A4 /* Ionic */,
 				8443343A1C8D299A005C78A4 /* Products */,
 				8DA8FE3577FF6EED982C70FF /* Pods */,
 				01AFF1ACF7EC2B5C22850AE7 /* Frameworks */,
@@ -221,12 +230,12 @@
 		8443343A1C8D299A005C78A4 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				844334391C8D299A005C78A4 /* CNode.app */,
+				844334391C8D299A005C78A4 /* Ionic.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		8443343B1C8D299A005C78A4 /* CNode */ = {
+		8443343B1C8D299A005C78A4 /* Ionic */ = {
 			isa = PBXGroup;
 			children = (
 				844334FB1C8E77EF005C78A4 /* LBXAlertAction */,
@@ -246,13 +255,14 @@
 				8443344D1C8D299A005C78A4 /* Info.plist */,
 				8443343C1C8D299A005C78A4 /* Supporting Files */,
 			);
+			name = Ionic;
 			path = CNode;
 			sourceTree = "<group>";
 		};
 		8443343C1C8D299A005C78A4 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				8443348B1C8D2B84005C78A4 /* CNode-PrefixHeader.pch */,
+				8443348B1C8D2B84005C78A4 /* Ionic-PrefixHeader.pch */,
 				8443343D1C8D299A005C78A4 /* main.m */,
 			);
 			name = "Supporting Files";
@@ -330,6 +340,8 @@
 				8421066D1C900D360071AE40 /* MessageViewController.m */,
 				8421066F1C90136E0071AE40 /* MessageListViewController.h */,
 				842106701C90136E0071AE40 /* MessageListViewController.m */,
+				842106811C9107A90071AE40 /* NewTopicViewController.h */,
+				842106821C9107A90071AE40 /* NewTopicViewController.m */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -393,6 +405,10 @@
 				8421067C1C901E5A0071AE40 /* MenuItemModel.m */,
 				8421067E1C9030880071AE40 /* UpOrDownResultModel.h */,
 				8421067F1C9030880071AE40 /* UpOrDownResultModel.m */,
+				842106841C9113C90071AE40 /* PublishTopicResultModel.h */,
+				842106851C9113C90071AE40 /* PublishTopicResultModel.m */,
+				842106871C911CBF0071AE40 /* WriteCommentResultModel.h */,
+				842106881C911CBF0071AE40 /* WriteCommentResultModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -430,9 +446,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		844334381C8D299A005C78A4 /* CNode */ = {
+		844334381C8D299A005C78A4 /* Ionic */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 844334501C8D299A005C78A4 /* Build configuration list for PBXNativeTarget "CNode" */;
+			buildConfigurationList = 844334501C8D299A005C78A4 /* Build configuration list for PBXNativeTarget "Ionic" */;
 			buildPhases = (
 				CBB0984AAAD21954E7B357B4 /* Check Pods Manifest.lock */,
 				844334351C8D299A005C78A4 /* Sources */,
@@ -445,9 +461,9 @@
 			);
 			dependencies = (
 			);
-			name = CNode;
+			name = Ionic;
 			productName = CNode;
-			productReference = 844334391C8D299A005C78A4 /* CNode.app */;
+			productReference = 844334391C8D299A005C78A4 /* Ionic.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -465,7 +481,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 844334341C8D299A005C78A4 /* Build configuration list for PBXProject "CNode" */;
+			buildConfigurationList = 844334341C8D299A005C78A4 /* Build configuration list for PBXProject "Ionic" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -478,7 +494,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				844334381C8D299A005C78A4 /* CNode */,
+				844334381C8D299A005C78A4 /* Ionic */,
 			);
 		};
 /* End PBXProject section */
@@ -562,6 +578,7 @@
 				8421066E1C900D360071AE40 /* MessageViewController.m in Sources */,
 				844334D91C8D61DC005C78A4 /* DetailViewController.m in Sources */,
 				8443346E1C8D2B66005C78A4 /* UIColor+Extents.m in Sources */,
+				842106861C9113C90071AE40 /* PublishTopicResultModel.m in Sources */,
 				844334AE1C8D2C17005C78A4 /* PopupBaseView.m in Sources */,
 				844334881C8D2B6D005C78A4 /* LeftDrawerViewController.m in Sources */,
 				844335031C8E77EF005C78A4 /* UIActionSheet+LBXAlertAction.m in Sources */,
@@ -600,10 +617,12 @@
 				8421065B1C8FCA110071AE40 /* RecommendersView.m in Sources */,
 				844334CD1C8D33E4005C78A4 /* TopicListModel.m in Sources */,
 				844335051C8E77EF005C78A4 /* LBXAlertAction.m in Sources */,
+				842106891C911CBF0071AE40 /* WriteCommentResultModel.m in Sources */,
 				8443343E1C8D299A005C78A4 /* main.m in Sources */,
 				844334851C8D2B6D005C78A4 /* FDViewController.m in Sources */,
 				8421065E1C8FF1D40071AE40 /* TextInputView.m in Sources */,
 				844335041C8E77EF005C78A4 /* UIAlertView+LBXAlertAction.m in Sources */,
+				842106831C9107A90071AE40 /* NewTopicViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -657,7 +676,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -695,7 +714,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -711,12 +730,12 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "./CNode/CNode-PrefixHeader.pch";
+				GCC_PREFIX_HEADER = "./CNode/Ionic-PrefixHeader.pch";
 				INFOPLIST_FILE = CNode/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.gshe.CNode;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Ionic;
 				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
@@ -729,12 +748,12 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "./CNode/CNode-PrefixHeader.pch";
+				GCC_PREFIX_HEADER = "./CNode/Ionic-PrefixHeader.pch";
 				INFOPLIST_FILE = CNode/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.gshe.CNode;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Ionic;
 				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
@@ -742,7 +761,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		844334341C8D299A005C78A4 /* Build configuration list for PBXProject "CNode" */ = {
+		844334341C8D299A005C78A4 /* Build configuration list for PBXProject "Ionic" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8443344E1C8D299A005C78A4 /* Debug */,
@@ -751,7 +770,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		844334501C8D299A005C78A4 /* Build configuration list for PBXNativeTarget "CNode" */ = {
+		844334501C8D299A005C78A4 /* Build configuration list for PBXNativeTarget "Ionic" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				844334511C8D299A005C78A4 /* Debug */,

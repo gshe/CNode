@@ -57,6 +57,7 @@
       [[ReplyDetailViewController alloc] initWithNibName:nil bundle:nil];
   detailVC.curReply = userData.reply;
   detailVC.replyList = self.topic.replies;
+  detailVC.topic = self.topic;
   [self.navigationController pushViewController:detailVC animated:YES];
 }
 
